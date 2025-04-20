@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { RenderElementProps } from 'slate-react'
 
-import { getAlignmentProps } from './render-element'
 import { cn } from '../utils'
+import { getAlignmentProps } from './render-element'
 
 export default function NodeDefault(props: RenderElementProps) {
   const values = useMemo(() => getAlignmentProps(props), [props.element])
@@ -19,7 +19,7 @@ export default function NodeDefault(props: RenderElementProps) {
         'first-of-type:data-[empty=true]:after:top-0',
         'first-of-type:data-[empty=true]:after:left-0',
         'first-of-type:data-[empty=true]:after:opacity-[0.5]',
-        'first-of-type:data-[empty=true]:after:cursor-text'
+        'first-of-type:data-[empty=true]:after:cursor-text',
       )}
       data-empty={values.isEmpty}
       dir={values.dir}

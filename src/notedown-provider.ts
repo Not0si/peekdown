@@ -11,7 +11,7 @@ export default class NotedownProvider
     const provider = new NotedownProvider(context)
     const providerRegistration = vscode.window.registerCustomEditorProvider(
       NotedownProvider.viewType,
-      provider
+      provider,
     )
 
     return providerRegistration
@@ -20,11 +20,11 @@ export default class NotedownProvider
   resolveCustomTextEditor(
     document: vscode.TextDocument,
     webviewPanel: vscode.WebviewPanel,
-    _token: vscode.CancellationToken
+    _token: vscode.CancellationToken,
   ): Thenable<void> | void {
     const html = this.getHtmlForWebview(
       webviewPanel.webview,
-      document.getText()
+      document.getText(),
     )
 
     webviewPanel.webview.options = {
@@ -43,8 +43,8 @@ export default class NotedownProvider
         'web-view',
         'dist',
         'assets',
-        'index.js'
-      )
+        'index.js',
+      ),
     )
 
     let cssSrc = webview.asWebviewUri(
@@ -53,8 +53,8 @@ export default class NotedownProvider
         'web-view',
         'dist',
         'assets',
-        'index.css'
-      )
+        'index.css',
+      ),
     )
 
     return `

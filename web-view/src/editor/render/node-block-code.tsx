@@ -1,11 +1,10 @@
 import { BundledLanguage, BundledTheme, codeToHtml } from 'shiki'
 import { bundledLanguagesInfo, bundledThemesInfo } from 'shiki'
+import { Node, Transforms } from 'slate'
 
 import { RefObject } from 'react'
 import { createContext, useContext, useEffect, useRef } from 'react'
 import { ReactEditor, RenderElementProps, useSlateStatic } from 'slate-react'
-
-import { Node, Transforms } from 'slate'
 
 import { ICodeBlockElement } from '../editor-types'
 
@@ -135,7 +134,7 @@ export const languages = bundledLanguagesInfo.map((language) => {
 })
 
 export const extractCustomCodeText = (
-  codeBlockElement: ICodeBlockElement
+  codeBlockElement: ICodeBlockElement,
 ): string[] => {
   const result: string[] = []
 
@@ -156,20 +155,20 @@ export function NodeBlockCode({ children, element }: RenderElementProps) {
     theme: BundledTheme,
     backgroundColor?: string,
     color?: string,
-    className?: string
+    className?: string,
   ) => {
     const path = ReactEditor.findPath(editor, element)
 
     Transforms.setNodes(
       editor,
       { language, theme, backgroundColor, color, className },
-      { at: path }
+      { at: path },
     )
   }
 
   const fetchStyle = async (
     language?: BundledLanguage,
-    theme?: BundledTheme
+    theme?: BundledTheme,
   ) => {
     const { className, color, backgroundColor } = await getCodeBlockStyle({
       lang: language ?? (element as ICodeBlockElement).language,
@@ -181,7 +180,7 @@ export function NodeBlockCode({ children, element }: RenderElementProps) {
       theme ?? (element as ICodeBlockElement).theme,
       backgroundColor,
       color,
-      className
+      className,
     )
   }
 

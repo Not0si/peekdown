@@ -1,7 +1,7 @@
+import { createEditor } from 'slate'
+
 import { useState } from 'react'
 import { Editable, Slate, withReact } from 'slate-react'
-
-import { createEditor } from 'slate'
 
 import { getInitialValue } from './core/editor-Initial-value'
 import { ReshaperPlugin } from './core/editor-plugins'
@@ -29,8 +29,8 @@ export default function TextEditor() {
       // onChange={onChange}
     >
       <Editable
-        as='article'
-        className='focus-visible:outline-none m-8 py-10 px-20 min-h-screen card'
+        as="article"
+        className="focus-visible:outline-none m-8 py-10 px-20 min-h-screen card"
         // readOnly={lock}
         renderElement={RenderElement}
         renderLeaf={RenderLeaf}

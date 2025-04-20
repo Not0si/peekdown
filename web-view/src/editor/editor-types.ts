@@ -1,9 +1,8 @@
 import { BundledLanguage, BundledTheme } from 'shiki'
+import { BaseEditor, BaseRange } from 'slate'
 
 import { KeyboardEvent } from 'react'
 import { ReactEditor } from 'slate-react'
-
-import { BaseEditor, BaseRange } from 'slate'
 
 export type IEditor = BaseEditor & ReactEditor
 

@@ -1,8 +1,8 @@
-import { SlateCommands } from './slate-command'
-import { SlateElement } from './slate-element'
 import { Transforms } from 'slate'
 
 import { IEditor, IEditorKeyEvent } from '../editor-types'
+import { SlateCommands } from './slate-command'
+import { SlateElement } from './slate-element'
 
 export const onKeyDown = (event: IEditorKeyEvent, editor: IEditor) => {
   SlateCommands.selectAll(event, editor)

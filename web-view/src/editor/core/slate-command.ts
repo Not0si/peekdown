@@ -1,8 +1,7 @@
-import { KeyboardEvent } from 'react'
-
-import { SlateElement } from './slate-element'
 import { Editor, Range, Transforms } from 'slate'
 import { Element } from 'slate'
+
+import { KeyboardEvent } from 'react'
 
 import {
   IEditor,
@@ -11,6 +10,7 @@ import {
   ITextElements,
   ITextFormat,
 } from '../editor-types'
+import { SlateElement } from './slate-element'
 
 type IKeyEvent = KeyboardEvent<HTMLDivElement>
 
