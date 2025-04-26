@@ -5,7 +5,7 @@ import { cn } from '../utils'
 import { getAlignmentProps } from './render-element'
 
 export default function NodeDefault(props: RenderElementProps) {
-  const values = useMemo(() => getAlignmentProps(props), [props.element])
+  const values = useMemo(() => getAlignmentProps(props), [props])
 
   return (
     <p
@@ -14,6 +14,7 @@ export default function NodeDefault(props: RenderElementProps) {
         textAlign: values.textAlign ?? 'left',
       }}
       className={cn(
+        'text-foreground',
         'first-of-type:data-[empty=true]:after:absolute',
         "first-of-type:data-[empty=true]:after:content-['Write_Somethings...']",
         'first-of-type:data-[empty=true]:after:top-0',

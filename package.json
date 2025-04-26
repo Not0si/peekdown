@@ -32,12 +32,21 @@
         ]
       }
     ],
+    "languages": [
+      {
+        "id": "jsx",
+        "aliases": [
+          "JSX"
+        ],
+        "extensions": [
+          ".jsx"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
     "menus": {}
   },
   "scripts": {
-    "build:webview": "cd ./web-view && npm run build",
-    "watch:webview": "chokidar ./web-view/src/**/* --initial=true  -c \"npm run build:webview\"",
-    "dev:webview": "cd ./web-view && npm run dev",
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
@@ -56,6 +65,8 @@
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
     "@types/vscode": "^1.99.0",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
@@ -66,5 +77,15 @@
     "eslint": "^9.23.0",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "shiki": "^3.3.0",
+    "slate": "^0.112.0",
+    "slate-react": "^0.112.1",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.4"
   }
 }

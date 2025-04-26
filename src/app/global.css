@@ -5,7 +5,7 @@
 
   /*  */
   --color-background: light-dark(#ffffff, #1e1e1e);
-  --color-foreground: light-dark(#1f2937, #f8f9f8);
+  --color-foreground: light-dark(#222222, #f8f9f8);
 
   --color-primary: light-dark(#0f172a, #f8fafc);
   --color-primary-foreground: light-dark(white, #0f172a);
@@ -43,7 +43,11 @@
       -apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto,
       'Helvetica Neue', Arial, sans-serif;
     line-height: 1.5;
-    background: var(--color-muted);
+    background-color: var(--color-muted);
+    padding: 0px !important;
+    width: 100vh;
+    height: 100vh;
+    overflow: hidden;
   }
 
   #root {
@@ -53,7 +57,6 @@
 
 @layer components {
   .card {
-    border-radius: 0.5rem;
     background: var(--color-background);
     box-shadow: var(--shadow-base);
     padding: 4px 8px;
