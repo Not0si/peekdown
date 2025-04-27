@@ -37,7 +37,7 @@ async function main() {
     },
     entryPoints: [
       // 'src/extension.ts',
-      { out: 'extension', in: 'src/extension/extension.ts' },
+      { out: 'extension', in: 'src/extension.ts' },
       { out: 'app/index', in: 'src/app/index.tsx' },
     ],
     outdir: 'dist',
