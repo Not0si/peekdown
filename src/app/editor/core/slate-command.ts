@@ -56,7 +56,9 @@ export const SlateCommands = {
    */
   isAlignmentActive: (editor: IEditor, align: ITextAlign): boolean => {
     const { selection } = editor
-    if (!selection) return false
+    if (!selection) {
+      return false
+    }
 
     const [match] = Array.from(
       Editor.nodes(editor, {
@@ -147,7 +149,7 @@ export const SlateCommands = {
     return Boolean(
       selection &&
         Range.isExpanded(selection) &&
-        selection.focus.path[0] == children.length - 1,
+        selection.focus.path[0] === children.length - 1,
     )
   },
 
@@ -178,7 +180,9 @@ export const SlateCommands = {
     const aKey = event.key === 'a' || event.key === 'A'
     const triggerKey = event.ctrlKey || event.metaKey
 
-    if (!(triggerKey && aKey)) return null
+    if (!(triggerKey && aKey)) {
+      return null
+    }
     event.preventDefault()
 
     const { selection } = editor
@@ -206,10 +210,12 @@ export const SlateCommands = {
   },
 
   onBackspace: (event: IKeyEvent, editor: IEditor) => {
-    if (event.key !== 'Backspace' && event.key !== 'Delete') return null
+    if (event.key !== 'Backspace' && event.key !== 'Delete') {
+      return null
+    }
 
     const prevElem = SlateElement.previousElement(editor)
-    if (prevElem?.type == 'h1' && prevElem.children?.[0]?.text.trim() === '') {
+    if (prevElem?.type === 'h1' && prevElem.children?.[0]?.text.trim() === '') {
       return event.preventDefault()
     }
 

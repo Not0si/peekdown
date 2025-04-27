@@ -1,4 +1,7 @@
+const tailwindcss = require('@tailwindcss/postcss')
 const esbuild = require('esbuild')
+
+const postcssPlugin = require('./postcss-plugin.cjs')
 
 const production = process.argv.includes('--production')
 const watch = process.argv.includes('--watch')
@@ -44,12 +47,14 @@ async function main() {
     sourcemap: !production,
     sourcesContent: false,
     platform: 'node',
-    // outfile: 'dist/extension.js',
     external: ['vscode'],
     logLevel: 'silent',
     plugins: [
       /* add to the end of plugins array */
       esbuildProblemMatcherPlugin,
+      postcssPlugin({
+        plugins: [tailwindcss],
+      }),
     ],
   })
   if (watch) {
