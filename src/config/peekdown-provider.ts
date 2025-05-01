@@ -3,15 +3,15 @@ import * as vscode from 'vscode'
 
 import { WebviewNotification } from './type'
 
-export class NotedownProvider implements vscode.CustomTextEditorProvider {
-  private static readonly viewType = 'notedown.editor'
+export class PeekdownProvider implements vscode.CustomTextEditorProvider {
+  private static readonly viewType = 'peekdown.editor'
 
   constructor(private readonly context: vscode.ExtensionContext) {}
 
   public static register(context: vscode.ExtensionContext): vscode.Disposable {
-    const provider = new NotedownProvider(context)
+    const provider = new PeekdownProvider(context)
     const providerRegistration = vscode.window.registerCustomEditorProvider(
-      NotedownProvider.viewType,
+      PeekdownProvider.viewType,
       provider,
       {
         webviewOptions: { retainContextWhenHidden: true },

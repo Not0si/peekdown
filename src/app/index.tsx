@@ -1,8 +1,13 @@
 import { createRoot } from 'react-dom/client'
 
+import App from './app'
+import DefaultLayout from './components/layouts/default-layout'
 import './global.css'
-import Main from './main'
 
 const container = document.getElementById('root')
 const root = createRoot(container!)
-root.render(<Main />)
+root.render(
+  <DefaultLayout>
+    <App />
+  </DefaultLayout>,
+)

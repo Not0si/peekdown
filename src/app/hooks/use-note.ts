@@ -1,6 +1,8 @@
 import { WebviewApi } from 'vscode-webview'
 import { create } from 'zustand'
 
+import { ChangeEvent } from 'react'
+
 import { ExtensionNotification, WebviewNotification } from '../../type'
 import { parseMarkdown } from '../utils'
 
@@ -19,6 +21,8 @@ interface Note {
   content: string | undefined
   htmlContent: string | undefined
   frontmatter: Record<string, any> | null
+  markdown: string | undefined
+  setMarkdown: (event: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 export const useNote = create<Note>((set, get) => ({
@@ -28,6 +32,7 @@ export const useNote = create<Note>((set, get) => ({
   content: undefined,
   frontmatter: null,
   htmlContent: undefined,
+  markdown: undefined,
 
   //
   postMessage: (message) => {
@@ -62,6 +67,10 @@ export const useNote = create<Note>((set, get) => ({
       default:
         break
     }
+  },
+
+  setMarkdown: (event: ChangeEvent<HTMLTextAreaElement>) => {
+    set({ markdown: event.target.value })
   },
 
   //

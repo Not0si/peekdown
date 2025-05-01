@@ -1,6 +1,6 @@
 # Notedown README
 
-This is the README for your extension "notedown". After writing up a brief description, we recommend including the following sections.
+Notedown is a user-friendly Markdown preview and editor extension for VSCode. It lets you write and preview Markdown side by side, with live updates, syntax highlighting, and a clean interface to focus on your notes or documentation.
 
 ## Features
 

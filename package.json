@@ -1,8 +1,9 @@
 {
-  "name": "notedown",
-  "displayName": "Notedown",
+  "name": "peekdown",
+  "displayName": "PeekDown",
+  "publisher": "Not0si",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.99.0"
   },
@@ -16,15 +17,15 @@
   "contributes": {
     "commands": [
       {
-        "command": "notedown.webview",
-        "category": "Notedown",
+        "command": "peekdown.webview",
+        "category": "PeekDown",
         "title": "Run"
       }
     ],
     "customEditors": [
       {
-        "viewType": "notedown.editor",
-        "displayName": "Notedown",
+        "viewType": "peekdown.editor",
+        "displayName": "PeekDown",
         "selector": [
           {
             "filenamePattern": "*.md"
@@ -90,6 +91,7 @@
     "marked": "^15.0.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-resizable-panels": "^2.1.9",
     "shiki": "^3.3.0",
     "slate": "^0.112.0",
     "slate-react": "^0.112.1",

@@ -11,8 +11,8 @@ export default function MarkdownViewer({ className }: MarkdownViewerProps) {
   return (
     <div
       className={cn(
-        'card p-4 w-full min-h-[calc(100vh-76px)] max-h-[calc(100vh-76px)]',
-        'overflow-y-auto',
+        'bg-muted px-4 py-8 w-full h-full max-h-full',
+        'rounded-[1.5rem] border border-border overflow-y-auto',
         className,
       )}
     >

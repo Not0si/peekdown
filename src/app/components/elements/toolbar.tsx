@@ -7,7 +7,7 @@ export default function Toolbar() {
   return (
     <header
       className={cn(
-        'flex items-center justify-between card h-[48px] select-none',
+        'flex items-center justify-between bg-muted card h-[48px] px-4 select-none',
       )}
     >
       <h1 className="text-xl font-semibold text-gray-900">

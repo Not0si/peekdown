@@ -25,7 +25,7 @@
   --color-destructive: light-dark(#dc2626, #f87171);
   --color-destructive-foreground: light-dark(white, #1c1c1c);
 
-  --color-border: light-dark(#d1d5db, #4b5563);
+  --color-border: light-dark(hsl(45 17% 91%), #4b5563);
 }
 
 @layer base {
@@ -62,8 +62,6 @@
 @layer components {
   .card {
     background: var(--color-background);
-    box-shadow: var(--shadow-c1);
     padding: 10px 16px;
-    border-radius: 2px;
   }
 }

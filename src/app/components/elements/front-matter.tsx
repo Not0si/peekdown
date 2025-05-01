@@ -9,7 +9,9 @@ export default function FrontMatter({ className }: FrontMatterProps) {
   const { frontmatter } = useNote()
 
   return (
-    <div className={cn('card p-4 w-full max-w-[300px] select-none', className)}>
+    <div
+      className={cn('bg-muted p-4 w-full max-w-[300px] select-none', className)}
+    >
       {frontmatter ?
         Object.entries(frontmatter).map(([key, value], index) => (
           <div key={index} className="flex items-center mb-2">
