@@ -1,13 +1,8 @@
 import { createRoot } from 'react-dom/client'
 
-import App from './app'
-import { AppContextProvider } from './context/app-context'
 import './global.css'
+import Main from './main'
 
 const container = document.getElementById('root')
 const root = createRoot(container!)
-root.render(
-  <AppContextProvider>
-    <App />
-  </AppContextProvider>,
-)
+root.render(<Main />)

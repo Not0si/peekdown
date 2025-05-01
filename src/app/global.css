@@ -1,11 +1,14 @@
 @import 'tailwindcss';
+@plugin "@tailwindcss/typography";
 
 @theme {
-  --shadow-base: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  --shadow-c1: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+  --shadow-c2: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  --shadow-c3: rgba(0, 0, 0, 0.1) 0px 10px 50px;
 
   /*  */
   --color-background: light-dark(#ffffff, #1e1e1e);
-  --color-foreground: light-dark(#222222, #f8f9f8);
+  --color-foreground: light-dark(#100c0b, #f8f9f8);
 
   --color-primary: light-dark(#0f172a, #f8fafc);
   --color-primary-foreground: light-dark(white, #0f172a);
@@ -13,7 +16,7 @@
   --color-secondary: light-dark(#60b8a3, #88d1c3);
   --color-secondary-foreground: light-dark(#0f172a, #0f172a);
 
-  --color-muted: light-dark(#f9f9f9, #374151);
+  --color-muted: light-dark(#f8fafb, #374151);
   --color-muted-foreground: light-dark(#6b7280, #d1d5db);
 
   --color-accent: light-dark(#f26d5b, #f26d5b);
@@ -44,6 +47,7 @@
       'Helvetica Neue', Arial, sans-serif;
     line-height: 1.5;
     background-color: var(--color-muted) !important;
+    color: var(--color-foreground);
     padding: 0px !important;
     width: 100vw;
     height: 100vh;
@@ -58,7 +62,8 @@
 @layer components {
   .card {
     background: var(--color-background);
-    box-shadow: var(--shadow-base);
-    padding: 4px 8px;
+    box-shadow: var(--shadow-c1);
+    padding: 10px 16px;
+    border-radius: 2px;
   }
 }
