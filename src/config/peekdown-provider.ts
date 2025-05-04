@@ -116,6 +116,7 @@ function getHtmlForWebview(
 
     <title>Notedown Editor</title>
     <style>
+    
       body {
         font-family: sans-serif;
         margin: 0;

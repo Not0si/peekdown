@@ -1,5 +1,6 @@
-import { ThemeSwitcher } from '../../components/elements/theme-switcher'
-import { useNote } from '../../hooks/use-note'
+import { ThemeSwitcher } from '@/components/elements/theme-switcher'
+
+import { useNote } from '@/hooks/use-note'
 
 export default function Page() {
   const { markdown, setMarkdown } = useNote()
@@ -10,7 +11,7 @@ export default function Page() {
         <div className="w-3"></div>
         <ThemeSwitcher />
       </header>
-      <main className="w-full h-full pl-2 pb-2">
+      <main className="h-[calc(100vh-50px)] pl-2 pb-2">
         <textarea
           id="markdown-editor"
           value={markdown}

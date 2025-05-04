@@ -90,6 +90,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@radix-ui/react-scroll-area": "^1.2.6",
     "@types/vscode-webview": "^1.57.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

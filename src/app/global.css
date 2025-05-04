@@ -8,32 +8,60 @@
 
   /*  */
   --color-background: #ffffff;
-  --color-foreground: #100c0b;
+  --color-foreground: #2e3338;
 
-  --color-primary: #0f172a;
-  --color-primary-foreground: white;
+  --color-primary: #f2f3f5;
+  --color-primary-foreground: #2e3338;
 
-  --color-secondary: #60b8a3;
-  --color-secondary-foreground: #0f172a;
+  --color-secondary: #5865f2;
+  --color-secondary-foreground: #ffffff;
 
-  --color-muted: #f8fafb;
-  --color-muted-foreground: #6b7280;
+  --color-muted: #e3e5e8;
+  --color-muted-foreground: #747f8d;
 
-  --color-destructive: #dc2626;
-  --color-destructive-foreground: white;
+  --color-destructive: #ed4245;
+  --color-destructive-foreground: #ffffff;
 
-  --color-border: hsl(45 17% 91%);
+  --color-border: #d1d5db;
 }
 
 @layer base {
-  [data-theme='dark-green'] {
-    --color-primary: #aab9ff;
-    --color-background: #1e1e1e;
+  [data-theme='dark'] {
+    --color-background: #2b2d31;
+    --color-foreground: #ffffff;
+
+    --color-primary: #1e1f22;
+    --color-primary-foreground: #ffffff;
+
+    --color-secondary: #5865f2;
+    --color-secondary-foreground: #ffffff;
+
+    --color-muted: #313338;
+    --color-muted-foreground: #b5bac1;
+
+    --color-destructive: #f23f42;
+    --color-destructive-foreground: #ffffff;
+
+    --color-border: #4e5058;
   }
 
-  [data-theme='dark-orange'] {
-    --color-primary: #56d0a0;
-    --color-background: #3f3f3f;
+  [data-theme='ash'] {
+    --color-background: #36393f;
+    --color-foreground: #dcddde;
+
+    --color-primary: #2f3136;
+    --color-primary-foreground: #dcddde;
+
+    --color-secondary: #7289da;
+    --color-secondary-foreground: #dcddde;
+
+    --color-muted: #484b51;
+    --color-muted-foreground: #72767d;
+
+    --color-destructive: #f04747;
+    --color-destructive-foreground: #dcddde;
+
+    --color-border: #72767d;
   }
 }
 
@@ -66,23 +94,55 @@
   #root {
     width: 100%;
   }
+}
 
-  /* Custom Scrollbar for Webview */
+/* @supports selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-color: unset;
+  }
+
   ::-webkit-scrollbar {
-    width: 8px !important;
+    width: 4px;
   }
 
   ::-webkit-scrollbar-track {
-    background: transparent !important;
+    background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: rgba(100, 100, 100, 0.5) !important;
-    border-radius: 4px;
+    border-radius: 9999px;
+    background: #c8c8c9;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(100, 100, 100, 0.7) !important;
+    background: #9b87f5;
+  }
+} */
+
+/* For modern browsers supporting custom scrollbar */
+@supports (scrollbar-color: auto) {
+  /* Apply styles to the HTML element */
+  html {
+    scrollbar-color: unset; /* Reset default scrollbar color */
+  }
+
+  /* Define scrollbar width and track styles */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Define scrollbar thumb styles */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9999px; /* Rounded corners for thumb */
+    background: #c8c8c9; /* Default background color */
+  }
+
+  /* Hover state for scrollbar thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9b87f5; /* Hover background color */
   }
 }
 

@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 
 export const themes = [
-  { id: 'dark-green', label: 'Dark Green', hexColor: '#006400' },
-  { id: 'dark-orange', label: 'Dark Orange', hexColor: '#FF8C00' },
-  { id: 'light-blue', label: 'Light Blue', hexColor: '#ADD8E6' },
+  { id: 'ash', label: 'Ash', hexColor: '#323339' },
+  { id: 'dark', label: 'Dark', hexColor: '#1d1d21' },
+  { id: 'light', label: 'Light', hexColor: '#ffffff' },
 ] as const
 
 type Theme = (typeof themes)[number]['id']
@@ -21,7 +21,7 @@ export const useApp = create<App>((set, _get) => ({
    */
   accentColor: '#2a9d8f',
   palettes: [],
-  theme: 'light-blue',
+  theme: 'light',
 
   /**
    * Methodes
