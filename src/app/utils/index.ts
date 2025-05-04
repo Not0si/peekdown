@@ -47,7 +47,7 @@ export const deserializeMarkdown = (markdown: string): Node[] => {
  * @property frontmatter - An object containing the parsed YAML frontmatter, or `null` if not present or invalid.
  * @property content - The remaining markdown content after the frontmatter has been removed.
  */
-interface ParsedMarkdown {
+export interface ParsedMarkdown {
   frontmatter: Record<string, any> | null
   content: string
   htmlContent: string

@@ -1,21 +1,16 @@
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from './components/ui/resizable'
+import SplitPane from './components/ui/split-pane'
 import MarkdownEditor from './pages/markdown-editor'
 import MarkdownPreview from './pages/markdown-preview'
 
 export default function App() {
   return (
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel defaultSize={25}>
+    <SplitPane defaultWidth="30%" minWidth="200px" maxWidth="80%">
+      <SplitPane.Left className="h-full">
         <MarkdownEditor />
-      </ResizablePanel>
-      <ResizableHandle withHandle />
-      <ResizablePanel defaultSize={75}>
+      </SplitPane.Left>
+      <SplitPane.Right className="h-full">
         <MarkdownPreview />
-      </ResizablePanel>
-    </ResizablePanelGroup>
+      </SplitPane.Right>
+    </SplitPane>
   )
 }

@@ -1,10 +1,11 @@
+import debounce from 'lodash.debounce'
 import { WebviewApi } from 'vscode-webview'
 import { create } from 'zustand'
 
 import { ChangeEvent } from 'react'
 
-import { ExtensionNotification, WebviewNotification } from '../../type'
-import { parseMarkdown } from '../utils'
+import { ExtensionNotification, WebviewNotification } from '../../global'
+import { ParsedMarkdown, parseMarkdown } from '../utils'
 
 interface Note {
   vscode: WebviewApi<WebviewNotification>
@@ -35,6 +36,7 @@ export const useNote = create<Note>((set, get) => ({
   markdown: undefined,
 
   //
+
   postMessage: (message) => {
     const vscode = get().vscode
     vscode.postMessage(message)
@@ -56,6 +58,7 @@ export const useNote = create<Note>((set, get) => ({
               frontmatter: result.frontmatter,
               htmlContent: result.htmlContent,
               isLoading: false,
+              markdown: payload,
             })
           })
           .catch(() => {
@@ -70,8 +73,24 @@ export const useNote = create<Note>((set, get) => ({
   },
 
   setMarkdown: (event: ChangeEvent<HTMLTextAreaElement>) => {
-    set({ markdown: event.target.value })
+    const payload = event.target.value ?? ''
+    set({ markdown: payload })
+
+    debouncedParse(payload, (result) => {
+      set({
+        frontmatter: result.frontmatter,
+        htmlContent: result.htmlContent,
+      })
+    })
   },
 
   //
 }))
+
+export const debouncedParse = debounce(
+  async (payload: string, call: (result: ParsedMarkdown) => void) => {
+    const result = await parseMarkdown(payload)
+    call(result)
+  },
+  300,
+)

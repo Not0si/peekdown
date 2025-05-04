@@ -1,7 +1,7 @@
 import * as path from 'path'
 import * as vscode from 'vscode'
 
-import { WebviewNotification } from './type'
+import { WebviewNotification, nonce } from '../global'
 
 export class PeekdownProvider implements vscode.CustomTextEditorProvider {
   private static readonly viewType = 'peekdown.editor'
@@ -80,21 +80,11 @@ export class PeekdownProvider implements vscode.CustomTextEditorProvider {
   }
 }
 
-function getNonce() {
-  let text = ''
-  const possible =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-  for (let i = 0; i < 32; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length))
-  }
-  return text
-}
-
 function getHtmlForWebview(
   webview: vscode.Webview,
   context: vscode.ExtensionContext,
 ): string {
-  const nonce = getNonce() // you need a nonce too (will show you below)
+  // you need a nonce too (will show you below)
 
   let scriptUri = webview.asWebviewUri(
     vscode.Uri.joinPath(context.extensionUri, 'dist', 'app', 'index.js'),
@@ -105,21 +95,45 @@ function getHtmlForWebview(
   )
 
   return `
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; script-src 'nonce-${nonce}';">
-         <link href=${styleUri} rel="stylesheet">
-        <title>Notedown Editor</title>
-      </head>
-      <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root"></div>
-        <script nonce="${nonce}" src="${scriptUri}"></script>
-      </body>
-    </html>
+  
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Secure Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'none';
+        script-src 'nonce-${nonce}';
+        style-src 'self' 'unsafe-inline' ${webview.cspSource} https://*.vscode-cdn.net;
+        font-src 'self' https://*.vscode-cdn.net;
+        img-src 'self' data:;
+      " />
+
+    <!-- External stylesheet -->
+    <link href="${styleUri}" rel="stylesheet" />
+
+    <title>Notedown Editor</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #root {
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body> 
+    <div id="root"></div>
+
+    <!-- Main script with nonce for CSP -->
+    <script nonce="${nonce}" src="${scriptUri}"></script>
+  </body>
+</html>
+
   `
 }
 
