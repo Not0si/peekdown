@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { cn } from '@/utils/cn'
 
-import { cn } from '../../utils/cn'
+import React, { useEffect, useRef, useState } from 'react'
 
 interface SplitPaneProps {
   children: React.ReactNode
@@ -86,9 +86,9 @@ const SplitPane: React.FC<SplitPaneProps> & {
         {leftPane}
       </div>
       <div
-        className="gutter bg-background select-none hover:bg-blue-600/40"
+        className="gutter bg-border-focus select-none hover:bg-accent active:bg-accent"
         style={{
-          width: '4px',
+          width: '2px',
           cursor: 'col-resize',
         }}
         onMouseDown={() => setIsDragging(true)}

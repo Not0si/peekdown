@@ -1,66 +1,52 @@
-import { useEffect, useRef, useState } from 'react'
+import { cn } from '@/utils/cn'
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 
 import { themes, useApp } from '@/hooks/use-app'
 
-import { cn } from '../../utils/cn'
 import { Button } from '../ui/button'
 
 export const ThemeSwitcher = () => {
   const { theme, setTheme } = useApp()
-  const [open, setOpen] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
-
-  const handleClickOutside = (e: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(e.target as Node)
-    ) {
-      setOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
-      <Button variant="outline" size="xsicon" onClick={() => setOpen(!open)}>
-        <div
-          className={cn('w-full px-2 h-full bg-amber-600')}
-          style={{
-            background: themes.find((item) => item.id === theme)?.hexColor,
-          }}
-        />
-      </Button>
-
-      <div
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          size="icon"
+          className="p-1 rounded-full border-muted hover:shadow-sm transition"
+        >
+          <div
+            className="w-5 h-5 rounded-full transition"
+            style={{
+              backgroundColor: themes.find((item) => item.id === theme)
+                ?.hexColor,
+            }}
+          />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
         className={cn(
-          'absolute right-0 mt-2 w-32 bg-white dark:bg-gray-800 rounded shadow-lg transition-all duration-200 overflow-hidden',
-          open ?
-            'opacity-100 scale-100'
-          : 'opacity-0 scale-95 pointer-events-none',
+          'flex flex-col gap-2 p-2',
+          'bg-white shadow-lg rounded-xl',
+          'min-w-[50px] w-[50px]',
         )}
       >
-        <div className="flex flex-col">
-          {themes.map((theme, index) => {
-            return (
-              <Button
-                key={index}
-                variant="link"
-                size="icon"
-                onClick={() => {
-                  setTheme(theme.id)
-                  setOpen(false)
-                }}
-              >
-                {theme.label}
-              </Button>
-            )
-          })}
-        </div>
-      </div>
-    </div>
+        {themes.map((theme, index) => (
+          <DropdownMenuItem
+            key={index}
+            onClick={() => setTheme(theme.id)}
+            className="w-6 h-6 rounded-full transition transform hover:scale-110 border"
+            style={{ backgroundColor: theme.hexColor }}
+          />
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }

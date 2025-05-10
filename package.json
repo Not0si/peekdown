@@ -3,7 +3,7 @@
   "displayName": "PeekDown",
   "publisher": "Not0si",
   "description": "PeekDown provides three seamless modes for working with Markdown: a live preview, a dedicated Markdown editor, and a text-to-Markdown converter — all within VS Code.",
-  "version": "0.0.2",
+  "version": "0.1.2",
   "repository": {
     "type": "git",
     "url": "https://github.com/Not0si/peekdown"
@@ -90,13 +90,15 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "@radix-ui/react-scroll-area": "^1.2.6",
+    "@radix-ui/react-dropdown-menu": "^2.1.12",
     "@types/vscode-webview": "^1.57.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "install": "^0.13.0",
     "js-yaml": "^4.1.0",
     "lodash.debounce": "^4.0.8",
     "marked": "^15.0.11",
+    "npm": "^11.3.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "shiki": "^3.3.0",
