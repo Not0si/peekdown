@@ -105,11 +105,12 @@ function getHtmlForWebview(
     <meta http-equiv="Content-Security-Policy"
       content="
         default-src 'none';
-        script-src 'nonce-${nonce}';
+        script-src 'nonce-${nonce}' 'wasm-unsafe-eval';
         style-src 'self' 'unsafe-inline' ${webview.cspSource} https://*.vscode-cdn.net;
         font-src 'self' https://*.vscode-cdn.net;
         img-src 'self' data:;
       " />
+
 
     <!-- External stylesheet -->
     <link href="${styleUri}" rel="stylesheet" />
@@ -129,7 +130,7 @@ function getHtmlForWebview(
   </head>
   <body> 
     <div id="root"></div>
-
+<div id="portal"></div>
     <!-- Main script with nonce for CSP -->
     <script nonce="${nonce}" src="${scriptUri}"></script>
   </body>

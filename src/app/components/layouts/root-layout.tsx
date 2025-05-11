@@ -38,8 +38,7 @@ const Content: FC<RootLayoutProps> = ({ children }) => {
     <main
       className={cn(
         'mt-2 rounded-[8px] border border-border-focus',
-        'max-h-[calc(100vh-68px)] bg-background overflow-hidden',
-        'py-1',
+        'max-h-[calc(100vh-68px)] bg-muted overflow-hidden',
       )}
     >
       {children}

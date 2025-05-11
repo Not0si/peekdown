@@ -1,5 +1,8 @@
-import yaml from 'js-yaml'
-import { marked } from 'marked'
+import fm from 'front-matter'
+import debounce from 'lodash.debounce'
+import { RendererObject, Tokens, marked } from 'marked'
+import { createHighlighterCore } from 'shiki/core'
+import { createOnigurumaEngine } from 'shiki/engine/oniguruma'
 import { Node } from 'slate'
 
 export const deserializeMarkdown = (markdown: string): Node[] => {
@@ -72,22 +75,45 @@ export interface ParsedMarkdown {
  * // result.content => "# Welcome"
  */
 export async function parseMarkdown(markdown: string): Promise<ParsedMarkdown> {
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*/
-  const match = markdown.match(frontmatterRegex)
+  const { attributes, body } = fm<Record<string, any>>(markdown)
 
-  let frontmatter = null
-  let content = markdown
+  const highlighter = await createHighlighterCore({
+    themes: [import('@shikijs/themes/vitesse-light')],
+    langs: [
+      import('@shikijs/langs/javascript'),
+      import('@shikijs/langs/css'),
+      import('@shikijs/langs/bash'),
+    ],
+    engine: createOnigurumaEngine(() => import('shiki/wasm')),
+  })
 
-  if (match) {
-    try {
-      frontmatter = yaml.load(match[1]) as Record<string, any>
-    } catch (error) {
-      console.warn('Invalid YAML frontmatter:', error)
-    }
-    content = markdown.slice(match[0].length).trimStart()
+  const renderer: RendererObject = {
+    code: ({ text, lang }: Tokens.Code) => {
+      const html = highlighter.codeToHtml(text, {
+        lang: lang as any,
+        theme: 'vitesse-light',
+      })
+
+      return html
+    },
   }
 
-  const htmlContent = await marked(content, { breaks: true })
+  marked.use({ renderer })
 
-  return { frontmatter, content, htmlContent }
+  const htmlContent = await marked(body, { breaks: true })
+
+  return {
+    frontmatter: attributes,
+    content: body,
+    htmlContent,
+  }
 }
+
+export const debouncedParse = debounce(
+  async (payload: string, call: (result: ParsedMarkdown) => void) => {
+    const result = await parseMarkdown(payload)
+
+    call(result)
+  },
+  300,
+)

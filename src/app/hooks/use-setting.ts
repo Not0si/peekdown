@@ -9,14 +9,14 @@ export const themes = [
 
 type Theme = (typeof themes)[number]['id']
 
-interface App {
+interface Setting {
   accentColor: string
   palettes: string[]
   theme: Theme
   setTheme: (theme: Theme) => void
 }
 
-export const useApp = create<App>((set, _get) => ({
+export const useSetting = create<Setting>((set, _get) => ({
   /**
    * Attributes
    */

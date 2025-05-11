@@ -7,12 +7,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { themes, useApp } from '@/hooks/use-app'
+import { themes, useSetting } from '@/hooks/use-setting'
 
 import { Button } from '../ui/button'
 
 export const ThemeSwitcher = () => {
-  const { theme, setTheme } = useApp()
+  const { theme, setTheme } = useSetting()
 
   return (
     <DropdownMenu>

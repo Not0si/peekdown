@@ -1,24 +1,26 @@
-import debounce from 'lodash.debounce'
 import { WebviewApi } from 'vscode-webview'
 import { create } from 'zustand'
 
 import { ChangeEvent } from 'react'
 
 import { ExtensionNotification, WebviewNotification } from '../../global'
-import { ParsedMarkdown, parseMarkdown } from '../utils'
+import { debouncedParse, parseMarkdown } from '../utils/markdown'
+
+interface DocumentInfo {
+  fileName: string
+  baseName: string
+  extension: string
+  directory: string
+}
 
 interface Note {
   vscode: WebviewApi<WebviewNotification>
   postMessage: (message: WebviewNotification) => void
-  onExtensionEvent: (event: MessageEvent<ExtensionNotification>) => void
+  onExtensionEvent: (
+    event: MessageEvent<ExtensionNotification>,
+  ) => Promise<void>
   isLoading: boolean
-  metadata:
-    | {
-        baseName: string
-        extension: string
-        directory: string
-      }
-    | undefined
+  documentInfo: DocumentInfo | undefined
   content: string | undefined
   htmlContent: string | undefined
   frontmatter: Record<string, any> | null
@@ -29,7 +31,7 @@ interface Note {
 export const useNote = create<Note>((set, get) => ({
   vscode: acquireVsCodeApi<WebviewNotification>(),
   isLoading: true,
-  metadata: undefined,
+  documentInfo: undefined,
   content: undefined,
   frontmatter: null,
   htmlContent: undefined,
@@ -42,37 +44,40 @@ export const useNote = create<Note>((set, get) => ({
     vscode.postMessage(message)
   },
 
-  onExtensionEvent: (event: MessageEvent<ExtensionNotification>) => {
+  onExtensionEvent: async (event) => {
     const { type, payload } = event.data
 
     switch (type) {
-      case 'title':
-        set({ metadata: JSON.parse(payload) })
+      case 'title': {
+        const data = JSON.parse(payload) as Omit<DocumentInfo, 'fileName'>
+        set({
+          documentInfo: {
+            ...data,
+            fileName: data.baseName.replace(data.extension, ''),
+          },
+        })
         break
+      }
 
-      case 'content':
-        parseMarkdown(payload)
-          .then((result) => {
-            set({
-              content: result.content,
-              frontmatter: result.frontmatter,
-              htmlContent: result.htmlContent,
-              isLoading: false,
-              markdown: payload,
-            })
-          })
-          .catch(() => {
-            // Optionally handle the error
-            set({ isLoading: false })
-          })
+      case 'content': {
+        const result = await parseMarkdown(payload)
+
+        set({
+          content: result.content,
+          frontmatter: result.frontmatter,
+          htmlContent: result.htmlContent,
+          isLoading: false,
+          markdown: payload,
+        })
         break
+      }
 
       default:
         break
     }
   },
 
-  setMarkdown: (event: ChangeEvent<HTMLTextAreaElement>) => {
+  setMarkdown: (event) => {
     const payload = event.target.value ?? ''
     set({ markdown: payload })
 
@@ -86,11 +91,3 @@ export const useNote = create<Note>((set, get) => ({
 
   //
 }))
-
-export const debouncedParse = debounce(
-  async (payload: string, call: (result: ParsedMarkdown) => void) => {
-    const result = await parseMarkdown(payload)
-    call(result)
-  },
-  300,
-)

@@ -1,12 +1,12 @@
 {
-  "name": "peekdown",
-  "displayName": "PeekDown",
+  "name": "terra",
+  "displayName": "Terra",
   "publisher": "Not0si",
-  "description": "PeekDown provides three seamless modes for working with Markdown: a live preview, a dedicated Markdown editor, and a text-to-Markdown converter — all within VS Code.",
+  "description": "Terra provides three seamless modes for working with Markdown: a live preview, a dedicated Markdown editor, and a text-to-Markdown converter — all within VS Code.",
   "version": "0.1.2",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Not0si/peekdown"
+    "url": "https://github.com/Not0si/terra"
   },
   "engines": {
     "vscode": "^1.99.0"
@@ -33,6 +33,9 @@
         "selector": [
           {
             "filenamePattern": "*.md"
+          },
+          {
+            "filenamePattern": "*.mdx"
           }
         ]
       }
@@ -94,8 +97,8 @@
     "@types/vscode-webview": "^1.57.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "front-matter": "^4.0.2",
     "install": "^0.13.0",
-    "js-yaml": "^4.1.0",
     "lodash.debounce": "^4.0.8",
     "marked": "^15.0.11",
     "npm": "^11.3.0",
