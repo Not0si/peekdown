@@ -3,11 +3,12 @@
   "displayName": "Terra",
   "publisher": "Not0si",
   "description": "Terra provides three seamless modes for working with Markdown: a live preview, a dedicated Markdown editor, and a text-to-Markdown converter — all within VS Code.",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Not0si/terra"
   },
+  "icon": "icon.png",
   "engines": {
     "vscode": "^1.99.0"
   },
@@ -86,6 +87,7 @@
     "@vscode/test-electron": "^2.4.1",
     "chokidar-cli": "^3.0.0",
     "esbuild": "^0.25.1",
+    "esbuild-plugin-inline-image": "^0.0.9",
     "eslint": "^9.23.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.5.3",

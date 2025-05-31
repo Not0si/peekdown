@@ -2,7 +2,6 @@ const tailwindcss = require('@tailwindcss/postcss')
 const esbuild = require('esbuild')
 
 const postcssPlugin = require('./postcss-plugin.cjs')
-
 const production = process.argv.includes('--production')
 const watch = process.argv.includes('--watch')
 
@@ -16,6 +15,7 @@ const esbuildProblemMatcherPlugin = {
     build.onStart(() => {
       console.log('[watch] build started')
     })
+
     build.onEnd((result) => {
       result.errors.forEach(({ text, location }) => {
         console.error(`✘ [ERROR] ${text}`)

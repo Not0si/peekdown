@@ -3,86 +3,105 @@ import debounce from 'lodash.debounce'
 import { RendererObject, Tokens, marked } from 'marked'
 import { createHighlighterCore } from 'shiki/core'
 import { createOnigurumaEngine } from 'shiki/engine/oniguruma'
-import { Node } from 'slate'
-
-export const deserializeMarkdown = (markdown: string): Node[] => {
-  const tokens = marked.lexer(markdown)
-
-  const nodes: Node[] = []
-
-  for (const token of tokens) {
-    console.log({ token })
-    // if (token.type === 'heading') {
-    //   nodes.push({
-    //     type: 'heading',
-    //     level: token.depth,
-    //     children: [{ text: token.text }],
-    //   })
-    // } else if (token.type === 'paragraph') {
-    //   nodes.push({
-    //     type: 'paragraph',
-    //     children: [{ text: token.text }],
-    //   })
-    // } else if (token.type === 'text') {
-    //   nodes.push({
-    //     type: 'paragraph',
-    //     children: [{ text: token.text }],
-    //   })
-    // } else if (token.type === 'list') {
-    //   nodes.push({
-    //     type: 'list',
-    //     ordered: token.ordered,
-    //     children: token.items.map((item) => ({
-    //       type: 'list-item',
-    //       children: [{ text: item.text }],
-    //     })),
-    //   })
-    // }
-    // Add more token types as needed
-  }
-
-  return nodes.length > 0 ? nodes : []
-}
 
 /**
- * Represents the result of parsing a markdown string.
  *
- * @property frontmatter - An object containing the parsed YAML frontmatter, or `null` if not present or invalid.
- * @property content - The remaining markdown content after the frontmatter has been removed.
+ *
  */
-export interface ParsedMarkdown {
+interface ParsedMarkdown {
   frontmatter: Record<string, any> | null
   content: string
   htmlContent: string
 }
 
-/**
- * Parses a markdown string and extracts optional YAML frontmatter and the content.
- *
- * @param markdown - The markdown string to parse.
- * @returns An object containing the parsed frontmatter and the markdown content.
- *
- * @example
- * const md = `---
- * title: Hello
- * tags:
- *   - intro
- * ---
- * # Welcome`
- *
- * const result = parseMarkdown(md)
- * // result.frontmatter => { title: "Hello", tags: ["intro"] }
- * // result.content => "# Welcome"
- */
 export async function parseMarkdown(markdown: string): Promise<ParsedMarkdown> {
   const { attributes, body } = fm<Record<string, any>>(markdown)
 
   const highlighter = await createHighlighterCore({
-    themes: [import('@shikijs/themes/vitesse-light')],
+    themes: [
+      import('@shikijs/themes/vitesse-light'),
+      import('@shikijs/themes/vitesse-dark'),
+      import('@shikijs/themes/catppuccin-frappe'),
+      import('@shikijs/themes/github-light'),
+      import('@shikijs/themes/dracula-soft'),
+      import('@shikijs/themes/monokai'),
+      import('@shikijs/themes/nord'),
+      import('@shikijs/themes/one-dark-pro'),
+      import('@shikijs/themes/ayu-dark'),
+      import('@shikijs/themes/solarized-light'),
+      import('@shikijs/themes/solarized-dark'),
+      import('@shikijs/themes/night-owl'),
+      import('@shikijs/themes/rose-pine'),
+      import('@shikijs/themes/rose-pine-dawn'),
+      import('@shikijs/themes/rose-pine-moon'),
+      import('@shikijs/themes/poimandres'),
+      import('@shikijs/themes/andromeeda'),
+      import('@shikijs/themes/slack-dark'),
+      import('@shikijs/themes/slack-ochin'),
+      import('@shikijs/themes/kanagawa-wave'),
+      import('@shikijs/themes/kanagawa-dragon'),
+      import('@shikijs/themes/kanagawa-lotus'),
+      import('@shikijs/themes/laserwave'),
+      import('@shikijs/themes/red'),
+      import('@shikijs/themes/houston'),
+      import('@shikijs/themes/everforest-dark'),
+      import('@shikijs/themes/everforest-light'),
+      import('@shikijs/themes/dark-plus'),
+      import('@shikijs/themes/light-plus'),
+      import('@shikijs/themes/min-dark'),
+      import('@shikijs/themes/min-light'),
+    ],
     langs: [
       import('@shikijs/langs/javascript'),
+      import('@shikijs/langs/typescript'),
       import('@shikijs/langs/css'),
+      import('@shikijs/langs/html'),
+      import('@shikijs/langs/json'),
+      import('@shikijs/langs/markdown'),
+      import('@shikijs/langs/python'),
       import('@shikijs/langs/bash'),
+      import('@shikijs/langs/java'),
+      import('@shikijs/langs/sql'),
+      import('@shikijs/langs/xml'),
+      import('@shikijs/langs/yaml'),
+      import('@shikijs/langs/php'),
+      import('@shikijs/langs/csharp'),
+      import('@shikijs/langs/cpp'),
+      import('@shikijs/langs/go'),
+      import('@shikijs/langs/ruby'),
+      import('@shikijs/langs/perl'),
+      import('@shikijs/langs/lua'),
+      import('@shikijs/langs/dart'),
+      import('@shikijs/langs/swift'),
+      import('@shikijs/langs/kotlin'),
+      import('@shikijs/langs/rust'),
+      import('@shikijs/langs/shell'),
+      import('@shikijs/langs/scss'),
+      import('@shikijs/langs/sass'),
+      import('@shikijs/langs/less'),
+      import('@shikijs/langs/ini'),
+      import('@shikijs/langs/toml'),
+      import('@shikijs/langs/r'),
+      import('@shikijs/langs/latex'),
+      import('@shikijs/langs/haskell'),
+      import('@shikijs/langs/elixir'),
+      import('@shikijs/langs/erlang'),
+      import('@shikijs/langs/clojure'),
+      import('@shikijs/langs/fsharp'),
+      import('@shikijs/langs/objective-c'),
+      import('@shikijs/langs/vb'),
+      import('@shikijs/langs/awk'),
+      import('@shikijs/langs/prolog'),
+      import('@shikijs/langs/sql'),
+      import('@shikijs/langs/nginx'),
+      import('@shikijs/langs/powershell'),
+      import('@shikijs/langs/d'),
+      import('@shikijs/langs/coffeescript'),
+      import('@shikijs/langs/julia'),
+      import('@shikijs/langs/fish'),
+      import('@shikijs/langs/haml'),
+      import('@shikijs/langs/dockerfile'),
+      import('@shikijs/langs/makefile'),
     ],
     engine: createOnigurumaEngine(() => import('shiki/wasm')),
   })
@@ -109,6 +128,10 @@ export async function parseMarkdown(markdown: string): Promise<ParsedMarkdown> {
   }
 }
 
+/**
+ *
+ *
+ */
 export const debouncedParse = debounce(
   async (payload: string, call: (result: ParsedMarkdown) => void) => {
     const result = await parseMarkdown(payload)
